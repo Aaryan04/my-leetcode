@@ -9,6 +9,7 @@ class Solution:
             visited[0][0] = True
             res = grid[0][0]
 
+            # traverse the neighbors and add in the max heap and follow the max vals and maintain the min value in that path
             while heap:
                 val, i, j = heapq.heappop(heap)
                 val = -val
@@ -24,6 +25,8 @@ class Solution:
                         heapq.heappush(heap, (-grid[ni][nj], ni, nj))
             return res        
         
+        # TC : O(MN LOG N)
+        # SC : O(MN)
         
         
         # BINARY SEARCH + BFS APPROACH

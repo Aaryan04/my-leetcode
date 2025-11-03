@@ -1,17 +1,25 @@
 class Solution:
     def thirdMax(self, nums: List[int]) -> int:
-        nums = set(nums)
-        unique = list(nums)
-        unique.sort()
-        print(unique)
-        return unique[-3] if len(unique) >= 3 else unique[-1]
+        # nums = set(nums)
+        # unique = list(nums)
+        # unique.sort()
+        # print(unique)
+        # return unique[-3] if len(unique) >= 3 else unique[-1]
         
-        # exist = set()
-        # k = 3
-        # max_heap = [-num for num in nums]
-        # heapq.heapify(max_heap)
+        # if len(nums) < 3:
+        #     return max(nums)
+        
+        distinct = set(nums)
+        if len(distinct) < 3:
+            return max(distinct)
 
-        # while k > 0:
-        #     val = -(heapq.heappop(max_heap))
+        # maintain a minheap of len 3
+        min_heap = []
+        for num in distinct:
+            heapq.heappush(min_heap, num)
+            if len(min_heap) > 3:
+                heapq.heappop(min_heap)
 
+        return min_heap[0]
 
+            

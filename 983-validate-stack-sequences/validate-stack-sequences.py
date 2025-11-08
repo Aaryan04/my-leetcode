@@ -1,6 +1,6 @@
 class Solution:
     def validateStackSequences(self, pushed: List[int], popped: List[int]) -> bool:
-        
+        # greedy approach
         stack = []
         i, j = 0, 0
 

@@ -12,6 +12,7 @@
 class Solution:
     def sortedListToBST(self, head: Optional[ListNode]) -> Optional[TreeNode]:
         
+        # converting linked list to array and then running pre order traversal
         def to_list(head:ListNode) -> list:
             vals = []
             while head:

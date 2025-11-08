@@ -4,19 +4,14 @@ class Solution:
         stack = []
         i, j = 0, 0
 
-        while i < len(pushed) and j < len(popped):
-            stack.append(pushed[i]) 
-            i += 1
-            while stack and stack[-1] == popped[j]:
+        # loop through every single item in pushed
+        for x in pushed:
+            stack.append(x) 
+
+            while stack and j < len(popped) and stack[-1] == popped[j]:
                 stack.pop()
                 j += 1
-            print(stack)
+            # print(stack)
             
-        while stack and j < len(popped):
-            if stack[-1] == popped[j]:
-                stack.pop()
-                j += 1
-            else:
-                return False
-        return True
+        return not stack
 

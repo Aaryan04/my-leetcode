@@ -11,7 +11,6 @@ class Solution:
             while stack and j < len(popped) and stack[-1] == popped[j]:
                 stack.pop()
                 j += 1
-            # print(stack)
             
         return not stack
 

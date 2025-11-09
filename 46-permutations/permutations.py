@@ -13,3 +13,8 @@ class Solution:
                 p_copy.insert(i, nums[0])
                 res.append(p_copy)
         return res
+
+        # TC = n! * n^2
+        # SC = n! * n
+
+        

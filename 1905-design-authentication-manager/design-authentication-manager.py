@@ -14,11 +14,15 @@ class AuthenticationManager:
             self.tracker[tokenId] = currentTime + self.timeToLive
 
     def countUnexpiredTokens(self, currentTime: int) -> int:
-        cnt = 0
-        for token in self.tracker:
-            if self.tracker[token] > currentTime:
-                cnt += 1
-        return cnt
+        expired_tokens = []
+        for token_id, expiry_time in self.tracker.items():
+            if expiry_time <= currentTime:
+                expired_tokens.append(token_id)
+            
+        for token_id in expired_tokens:
+            del self.tracker[token_id]
+
+        return len(self.tracker)
 
 # Your AuthenticationManager object will be instantiated and called as such:
 # obj = AuthenticationManager(timeToLive)

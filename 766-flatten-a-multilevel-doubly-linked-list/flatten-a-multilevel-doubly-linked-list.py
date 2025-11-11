@@ -10,41 +10,28 @@ class Node:
 
 class Solution:
     def flatten(self, head: 'Optional[Node]') -> 'Optional[Node]':
-        
         if not head:
             return head
 
-        tail = self.flatten_dfs(head)
-
-        return head
+        curr = head
         
-    def flatten_dfs(self, node):
-        curr = node
-        tail = node
-
         while curr:
-
-            # check if it has a child
             if curr.child:
-                original_next = curr.next                      # save the next node
-                child_tail = self.flatten_dfs(curr.child)          # recurse the child node as new head
+                # flatten child nodes
+                og_next = curr.next                     # save the og next node before recursion
+                curr.next = self.flatten(curr.child)         # returns the head of the child after flattening    
+                curr.next.prev = curr
+                curr.child = None
 
-                curr.next = curr.child
-                curr.child.prev = curr
-                curr.child = None 
+                # find tail
+                while curr.next:
+                    curr = curr.next                    # now curr points to the tail
+                    
+                # attach tail with next og_next
+                if og_next:
+                    curr.next = og_next
+                    og_next.prev = curr
 
-                child_tail.next = original_next
-                if original_next:
-                    child_tail.next.prev = child_tail             # connecting tail with og next 
-
-                tail = child_tail                                 # update main tail to be child tail
-
-                curr = original_next
-
-            else:
-                tail = curr
-                curr = curr.next
-
-        return tail
-
-                
+            curr = curr.next
+        
+        return head

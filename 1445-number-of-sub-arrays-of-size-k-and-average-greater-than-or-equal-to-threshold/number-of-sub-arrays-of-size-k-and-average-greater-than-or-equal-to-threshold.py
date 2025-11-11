@@ -10,7 +10,7 @@ class Solution:
 
             if r-l+1 == k:
                 print(currSum)
-                if currSum / k >= threshold:
+                if currSum >= threshold * k:
                     cnt += 1
                 currSum -= arr[l]
                 l += 1

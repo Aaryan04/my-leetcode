@@ -9,7 +9,6 @@ class Solution:
             currSum += arr[r]
 
             if r-l+1 == k:
-                print(currSum)
                 if currSum >= target:
                     cnt += 1
                 currSum -= arr[l]

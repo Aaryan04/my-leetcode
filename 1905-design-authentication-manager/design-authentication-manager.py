@@ -1,13 +1,15 @@
 class AuthenticationManager:
 
     def __init__(self, timeToLive: int):
-        self.tracker = defaultdict(int)      # id: expiry time
+        self.tracker = {}     # id: expiry time
         self.timeToLive = timeToLive
 
     def generate(self, tokenId: str, currentTime: int) -> None:
         self.tracker[tokenId] = currentTime + self.timeToLive
 
     def renew(self, tokenId: str, currentTime: int) -> None:
+        if tokenId not in self.tracker:
+            return
         if self.tracker[tokenId] > currentTime:
             self.tracker[tokenId] = currentTime + self.timeToLive
 

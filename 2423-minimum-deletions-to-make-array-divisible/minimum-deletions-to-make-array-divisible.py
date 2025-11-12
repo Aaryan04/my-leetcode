@@ -6,7 +6,14 @@ class Solution:
                 a,b = b, a%b
             return a 
 
-        g = functools.reduce(gcd, numsDivide)
-        smallest = min([num for num in nums if g%num == 0], default = inf)
-
-        return -1 if smallest == inf else sum(smallest > num for num in nums)
+        # Find GCD of all numbers in numsDivide
+        total_gcd = reduce(gcd, numsDivide)
+        
+        # Sort nums for easy traversal
+        nums.sort()
+        
+        # Find the first number in nums that divides total_gcd
+        for i, num in enumerate(nums):
+            if total_gcd % num == 0:
+                return i  # i elements before this need to be removed
+        return -1

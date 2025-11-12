@@ -10,7 +10,10 @@ class Solution:
         # TC = O(N)
         # SC = O(1)
 
-        # DP with Tabulation (iterative)
+
+
+        # ==============================
+        # TABULATION
         # n = len(nums)
         # if n == 0:
         #     return 0
@@ -22,15 +25,15 @@ class Solution:
         # dp[1] = max(nums[0], nums[1])       # max to reach index 1, and similarly we have to find max to reach last index
 
         # for i in range(2,n):
-        #     dp[i] = max(nums[i] + dp[i-2], dp[i-1])
+        #     dp[i] = max(nums[i] + dp[i-2], dp[i-1])           # max
         # return dp[-1]
         # TC => O(N)
         # SC => O(N)
         
         
+        # ==============================
         
-        
-        # Recursion with memoization
+        # MEMOIZATION
         # memo = {}
         # def helper(i):
         #     if i == 0:

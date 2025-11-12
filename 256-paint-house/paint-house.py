@@ -26,12 +26,6 @@ class Solution:
 
 
 
-
-
-
-
-
-
         # dp = [[-1] * 4 for _ in range(n)]
 
         # def calc_cost(h, last):
@@ -42,16 +36,14 @@ class Solution:
         #         min_cost = math.inf
         #         for i in range(3):
         #             if i != last:
-        #                 min_cost = min(min_cost, costs[0][i])
-        #                 dp[h][last] = min_cost
+        #                 dp[h][last] = min(min_cost, costs[0][i])
         #         return dp[h][last]
 
         #     min_cost = math.inf
         #     for i in range(3):
         #         if i != last:
         #             cost = costs[h][i] + calc_cost(h-1, i)           # recurse to prev house and last = i
-        #             min_cost = min(min_cost, cost)
-        #             dp[h][last] = min_cost    
+        #             dp[h][last] = min(min_cost, cost)
         #     return dp[h][last]
 
         # return calc_cost(n-1, 3)

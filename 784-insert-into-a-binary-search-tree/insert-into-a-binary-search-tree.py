@@ -21,6 +21,7 @@ class Solution:
         node = root
         if not node:
             return TreeNode(val)
+
         while node:
             if node.val > val:
                 if not node.left:

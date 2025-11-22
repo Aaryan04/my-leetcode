@@ -9,7 +9,7 @@ class Solution:
                 # case 1: top is smaller -> top explodes and check next
                 if stack[-1] < abs(a):
                     stack.pop()
-                    continue
+                    # continue        
                 
                 # case 2: same size -> both explode
                 elif stack[-1] == abs(a):

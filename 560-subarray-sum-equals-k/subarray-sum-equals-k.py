@@ -9,7 +9,7 @@ class Solution:
         for num in nums:
             curSum += num
             diff = curSum - k
-            res += prefixSum.get(diff, 0)
-            prefixSum[curSum] = prefixSum.get(curSum, 0) + 1
+            res += prefixSum[diff]
+            prefixSum[curSum] += 1
         
         return res

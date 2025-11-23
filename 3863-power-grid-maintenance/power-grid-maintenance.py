@@ -1,47 +1,51 @@
 class Solution:
     def processQueries(self, c: int, connections: List[List[int]], queries: List[List[int]]) -> List[int]:
-        adj = [[] for _ in range(c + 1)]
-        visit = [False] * (c + 1)
-        for u, v in connections:
-            adj[u].append(v)
-            adj[v].append(u)
-        
-        def dfs(node, comp):
-            for nei in adj[node]:
-                if not visit[nei]:
-                    visit[nei] = True
-                    comp.add(nei)
-                    dfs(nei, comp)
+        parent = list(range(c + 1))
 
-        offOnMap = {}
-        nodeToId = {} 
-        comp_id = 0 
-        for node in range(1, c + 1):
-            if not visit[node]:
-                visit[node] = True
-                comp = {node}
-                dfs(node, comp)
-                offOnMap[comp_id] = [SortedList(comp), SortedList()]
-                for node in comp:
-                    nodeToId[node] = comp_id
-                comp_id += 1
-        
-        res = [] 
-        for x, n in queries:
-            comp_id = nodeToId[n]
-            online, offline = offOnMap[comp_id]
+        def find(x):
+            while parent[x] != x:
+                parent[x] = parent[parent[x]]
+                x = parent[x]
+            return x
 
-            if x == 1:    
-                # now we check if this station is online
-                if n in online:
-                    res.append(n)
-                elif online and n in offline:
-                    res.append(online[0])
-                else:
-                    res.append(-1)
+        # union connected stations
+        for a, b in connections:
+            ra, rb = find(a), find(b)
+            if ra != rb:
+                parent[rb] = ra
+
+        # link nodes in sorted order within each component
+        next_node = [0] * (c + 1)
+        comp_min = [0] * (c + 1)
+        last = {}
+
+        for i in range(1, c + 1):
+            r = find(i)
+            if comp_min[r] == 0:
+                comp_min[r] = i
             else:
-                if online and n in online:
-                    online.remove(n)
-                    offline.add(n)
-        
+                next_node[last[r]] = i
+            last[r] = i
+
+        offline = [False] * (c + 1)
+        res = []
+
+        # process queries
+        for t, x in queries:
+            if t == 1: # maintenance check
+                if not offline[x]:
+                    res.append(x)
+                else:
+                    r = find(x)
+                    res.append(comp_min[r] if comp_min[r] else -1)
+            else: # t == 2 → turn off station
+                if not offline[x]:
+                    offline[x] = True
+                    r = find(x)
+                    if comp_min[r] == x:
+                        y = next_node[x]
+                        while y and offline[y]:
+                            y = next_node[y]
+                        comp_min[r] = y if y else 0
+
         return res

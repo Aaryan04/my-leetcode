@@ -10,20 +10,18 @@ class Allocator:
             if self.memory[i] == -1:
                 cnt += 1
 
-                # we have found a block big enough
+                # we have found a block big enough to fill up this block with mID
                 if cnt == size:
                     start_idx = i - size + 1
-
-                    for j in range(start_idx, i + 1):
+                    for j in range(start_idx, i+1):
                         self.memory[j] = mID
-                    
                     return start_idx
-                
+            
+            # we found non empty space so cnt = 0
             else:
-                # recent cnt if curr slot is occupied
-                cnt = 0
+                cnt = 0 
+        # if no start_idx is found
         return -1
-
 
 
     def freeMemory(self, mID: int) -> int:

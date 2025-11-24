@@ -12,6 +12,7 @@ class LRUCache:
 
         # left pointer node keeps track of LRU and 
         # right pointer node keeps track of MRU
+        
         self.left, self.right = Node(0, 0), Node(0, 0)
         self.left.next, self.right.prev = self.right, self.left        # doubly L.L.
 

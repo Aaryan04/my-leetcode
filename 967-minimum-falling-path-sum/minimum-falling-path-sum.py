@@ -13,11 +13,12 @@ class Solution:
         for i in range(1, n):
             for j in range(n):      # and for each column 
                 up = matrix[i][j] + dp[i-1][j]
-                left_d = matrix[i][j] + dp[i-1][j-1] if j-1 >= 0 else math.inf
-                right_d = matrix[i][j] + dp[i-1][j+1] if j+1 < n else math.inf
+                left_d = matrix[i][j] + dp[i-1][j-1] if j-1 >= 0 else math.inf      # with OOB condition
+                right_d = matrix[i][j] + dp[i-1][j+1] if j+1 < n else math.inf      # with OOB condition
 
                 dp[i][j] = min(up, left_d, right_d)
 
+        # finding the min of last row of dp matrix
         min_res = dp[n-1][0]
         for j in range(1, n):
             min_res = min(min_res, dp[n-1][j])

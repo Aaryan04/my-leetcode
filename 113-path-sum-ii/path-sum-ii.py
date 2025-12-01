@@ -8,22 +8,26 @@ class Solution:
     def pathSum(self, root: Optional[TreeNode], targetSum: int) -> List[List[int]]:
         res = []
 
-        def dfs(node, temp, currSum):
+        def dfs(node, path, currSum):
             if not node:
                 return
             
-            temp.append(node.val)
+            # 1. add curr node to path and update the sum
+            path.append(node.val)
             currSum += node.val
 
-            # check if leaf and sum matches
+            # 2. check if leaf and sum matches
             if not node.left and not node.right:
                 if currSum == targetSum:
-                    res.append(list(temp))          # append a copy
+                    res.append(list(path))          # append a copy
+            
+            # 3. recurse to left and right nodes
             else:
-                dfs(node.left, temp, currSum)
-                dfs(node.right, temp, currSum)
+                dfs(node.left, path, currSum)
+                dfs(node.right, path, currSum)
 
-            temp.pop()
+            # 4. backtrack (remove the node we added in step 1)
+            path.pop()
         
         dfs(root, [], 0)
         return res

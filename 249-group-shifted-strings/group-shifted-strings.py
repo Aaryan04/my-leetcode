@@ -1,6 +1,6 @@
 class Solution:
     def groupStrings(self, strings: List[str]) -> List[List[str]]:
-        hashmap = {}
+        hashmap = {}        # {(1,1): ['ab', 'cd']}
 
         for s in strings:
             key_list = []

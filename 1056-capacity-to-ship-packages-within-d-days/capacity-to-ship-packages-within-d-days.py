@@ -7,14 +7,13 @@ class Solution:
 
         def daysNeeded(capacity):
             days = 1
-            curr_load = 0
+            total = 0
 
             for w in weights:
-                if curr_load + w > capacity:        # if curr_load increases more than capacity then increase the days
+                total += w
+                if total > mid:
                     days += 1
-                    curr_load = w           # start new day with this load in the iteration
-                else:
-                    curr_load += w          # else keep adding to curr_load
+                    total = w
             return days
 
         l = max(weights)

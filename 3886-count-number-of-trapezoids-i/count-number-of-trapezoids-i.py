@@ -1,18 +1,23 @@
 class Solution:
     def countTrapezoids(self, points: List[List[int]]) -> int:
-        # thought process thinking of creating a hash table {y: num of x coordinates at this y}
-        mod = 10**9 + 7
-        point_num = defaultdict(int)
-
-        ans, total_sum = 0, 0 
-
-        # creating hashmap
-        for point in points:
-            point_num[point[1]] += 1
-
-        for p_num in point_num.values():
-            edge = p_num * (p_num - 1) // 2
-            ans = (ans + edge * total_sum) % mod
-            total_sum = (total_sum + edge) % mod
+        MOD = 10**9 + 7
         
-        return ans
+        # Map y-coordinate -> count of points at that height
+        points_by_y = defaultdict(int)
+        for x, y in points:
+            points_by_y[y] += 1
+            
+        total_trapezoids = 0
+        existing_segments = 0 # Accumulates all valid horizontal edges found so far
+        
+        for count in points_by_y.values():
+            # Calculate nC2: Number of horizontal segments possible at this specific Y level
+            current_segments = count * (count - 1) // 2
+            
+            # Every new segment can pair with EVERY existing edges to form a trapezoid
+            total_trapezoids = (total_trapezoids + current_segments * existing_segments) % MOD
+            
+            # Add the segments from this row to the pool for the next rows to use
+            existing_segments = (existing_segments + current_segments) % MOD
+            
+        return total_trapezoids

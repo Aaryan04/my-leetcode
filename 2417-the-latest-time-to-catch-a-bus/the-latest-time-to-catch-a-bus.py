@@ -5,7 +5,6 @@ class Solution:
         
         i, j = 0, 0
         n, m = len(buses), len(passengers)
-        currentCapacity = 0
         
         while i < n:
             currentCapacity = 0
@@ -16,13 +15,13 @@ class Solution:
             # Last Bus
             if i == n - 1:
                 j -= 1
-                if currentCapacity < totalCapacity:
+                if currentCapacity < totalCapacity:     # if last bus has more seats for you
                     time = buses[i]
                     while j >= 0 and time == passengers[j]:
                         time -= 1
                         j -= 1
                     return time
-                else:
+                else:                                   # if the bus is full
                     time = passengers[j] - 1
                     j -= 1
                     while j >= 0 and time == passengers[j]:

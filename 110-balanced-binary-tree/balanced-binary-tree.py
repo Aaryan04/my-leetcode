@@ -19,5 +19,3 @@ class Solution:
             return (isbalanced, 1 + max(lh, rh))
 
         return dfs(root)[0]
-
-        

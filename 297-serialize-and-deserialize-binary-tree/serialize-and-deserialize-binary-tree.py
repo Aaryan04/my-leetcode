@@ -25,8 +25,6 @@ class Codec:
         dfs(root)
         return ','.join(res)
 
-        
-
     def deserialize(self, data):
         """Decodes your encoded data to tree.
         
